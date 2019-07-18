@@ -48,4 +48,5 @@ Visit http://localhost:8080 in your browser
 - Get the URL : `minikube service my-todolist --url`
 
 > ### Clean up
+> - `helm del --purge my-todolist`
 > - `minikube delete`
