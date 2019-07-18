@@ -1,6 +1,10 @@
 {
   "name": "my-todolist",
   "version": "0.1.0",
+  "scripts": {
+    "start": "node app.js",
+    "test": "nyc --reporter=text mocha test/*.js --exit"
+  },
   "dependencies": {
     "body-parser": "^1.16.0",
     "ejs": "^2.5.5",
@@ -8,5 +12,11 @@
     "express-validator": "^4.3.0"
   },
   "author": "riaan@entersekt.com",
-  "description": "Basic to do list exercise"
+  "description": "Basic to do list exercise",
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^6.1.4",
+    "nyc": "^14.1.1",
+    "supertest": "^4.0.2"
+  }
 }

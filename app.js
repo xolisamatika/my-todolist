@@ -1,20 +1,30 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-var validator  = require('express-validator');
+const validator  = require('express-validator');
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
-
+const port = process.env.PORT || 8080;
+const debug = process.env.DEBUG || false;
 const app = express();
-app.use(validator());
+
+
+
 
 let todolist = [];
 
 /* The to do list and the form are displayed */
-app.get('/todo', function(req, res) {
+app.use(validator())
+.use(function(req, res, next) {
+    for (var item in req.body) {
+      req.sanitize(item).escape();
+    }
+    next();
+})
+.get('/todo', function(req, res) {
     res.render('todo.ejs', { todolist});
 })
 
 /* Adding an item to the to do list */
-.post('/todo/add/', urlencodedParser, function(req, res) {
+.post('/todo/add', urlencodedParser, function(req, res) {
     if (req.body.newtodo != '') {
         todolist.push(req.body.newtodo);
     }
@@ -45,15 +55,12 @@ app.get('/todo', function(req, res) {
     }
     res.redirect('/todo');
 })
-.use(function(req, res, next) {
-    for (var item in req.body) {
-      req.sanitize(item).escape();
-    }
-    next();
-  })
 /* Redirects to the to do list if the page requested is not found */
 .use(function(req, res, next){
     res.redirect('/todo');
 })
+.listen(port, function () {
+    console.log(`app listening on port ${port}!`)
+})
 
-.listen(8080);
+module.exports = app;

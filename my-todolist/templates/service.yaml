@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: "2019-07-16T13:32:46Z"
+  labels:
+    run: "{{ .Release.Name }}"
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: "{{ .Release.Name }}"
+    heritage: "{{ .Release.Service }}"  
+  name: "{{ .Release.Name }}"
+  namespace: default
+  resourceVersion: "48322"
+  selfLink: /api/v1/namespaces/default/services/my-todolist
+  uid: 4a6cc776-e9f3-44bd-9d5b-b83fd9ae953f
+spec:
+  clusterIP: 10.105.138.207
+  externalTrafficPolicy: Cluster
+  ports:
+  - nodePort: 30344
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    run: "{{ .Release.Name }}"
+  sessionAffinity: None
+  type: "{{ .Values.service.type }}"
+status:
+  loadBalancer: {}

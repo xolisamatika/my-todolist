@@ -34,3 +34,18 @@ Visit http://localhost:8080 in your browser
 
 ### Solution
 - Task #1 : Added a new view and two routes for editing/updating a todo item.
+
+### Instructions to run tests
+- npm test
+
+### Instructions to deploy to minikube
+- Start minikube and Set docker env 
+    - `minikube start`
+    - `eval $(minikube docker-env)`
+    - `helm init --upgrade`
+- Build docker image : `docker build -t my-todolist .`
+- Deploy `helm install -n my-todolist my-todolist`
+- Get the URL : `minikube service my-todolist --url`
+
+> ### Clean up
+> - `minikube delete`
